@@ -1,0 +1,124 @@
+################################################
+Documentation about the class Dog in dog.py
+################################################
+
+1. Constructor
+Notice the class Dog extends the class BaseModel from pydantic. Its constructor
+performs the parsing of the attributes and validation. Pydantic uses
+these type hints to automatically generate an __init__ method and provide
+additional functionality for data validation and parsing.
+That pydantic takes care of the constructor of the Article class is an
+important detail here. It is specific for pydantic. If one uses attribute
+annotation for an ordinary class, one still needs the __init__ method.
+Attribute annotation is like a hint for the constructor. This hint is saved
+in __annotation__ and might be used (pydantic does it). Attribute annotation
+seems to be a good idea for pydantic, for other cases, it might not help but
+make things more complicated.
+
+UUID stands for Universally Unique Identifier. It is a 128-bit value
+typically represented as a string of 32 hexadecimal characters, separated
+by hyphens into five groups (e.g., 550e8400-e29b-41d4-a716-446655440000).
+default factory is an attribute of the class Field and it has to be a
+callable (lambda in this case)
+The usage of Field(default_factory=...) is specific to defining attributes
+within a Pydantic model. It is intended to provide a default value for a
+field within the model using a callable.
+
+EmailStr is one of the several pydantic classes that validate strings as
+email adresses when possible.
+
+2. create_table
+
+Creates a table of dogs with path database_name.
+
+cls refers to the class. Is like self in a instance method.
+
+connect returns an object of type Connection, which is a class in sqlite3. In
+SQL terms a connection is the communication stream between a application(client)
+and a database management system(DBMS). In MySQL, for example, there is a server
+that stores and manages the connections with the different tables. In SQLite,
+there is no server. The tables and the structure of the dataset are stored in a
+unique file. "Each open SQLite database is represented by a Connection object"
+
+The way a Connection object sends queries to the database is through a Cursor
+object. "In computer science, a database cursor is a mechanism that enables
+traversal over the records in a database. Cursors facilitate subsequent
+processing in conjunction with the traversal, such as retrieval, addition and
+removal of database records. Wikipedia"
+
+Both Connection and Cursor objects possess the execute method. In this case,
+Connection calls execute() which creates a new Cursor object and call execute()
+on it with the given SQL and parameters. It returns the new cursor object.
+
+
+The method execute, from the cursos, interacts with the database by sending
+queries. In this case, it creates a new table called dogs in the database
+dog.db . Notice, the file extension for the database could be also .sqlite .
+
+
+3. save
+
+Inserts a row in a database with path database_name. Returns the Dog object that
+called the function (self).
+
+Notice it is not a class method, therefore, an instance of Dog is calling the
+method. A Connection is created with the database dogs.db.
+
+An object cursor is instantiated from the Connection. The method execute again
+interacts with the database by sending queries. But in this case it inserts the
+Dog instance attributes to a row of the table dogs.
+
+4. list_dogs
+Lists rows in a database with path database_name. Returns a list with all Dog
+objects.
+
+
+At some point in this function we use dictionary unpacking, i.e, the syntax
+function(**dict) which transforms keys in arguments names and values in
+argument values.
+
+
+As before, a Connection is created with the database dog.db. But different from
+the last two methods, here we modify the Connection attribute row_factory. The
+initial row_factory for Cursor objects created from this connection. Assigning
+to this attribute does not affect the row_factory of existing cursors belonging
+to this connection, only new ones. Is None by default, meaning each row is
+returned as a tuple.
+
+In a cursor object, row factory controls how a row fetched from this Cursor is
+represented. If None, a row is represented as a tuple. Can be set to the
+included sqlite3.Row; or a callable that accepts two arguments, a Cursor object
+and the tuple of row values, and returns a custom object representing an SQLite
+row.
+
+A Row instance serves as a highly optimized row_factory for Connection objects.
+It supports iteration, equality testing, len(), and mapping access by column
+name and index. Two Row objects compare equal if they have identical column
+names and values.
+
+In the previous methods we could just leave row_factory as the default (None)
+which would represent rows as tuples. If we had proceeded like this, records
+would be a list of tuples with the row values, without column name track, which
+would fail on **record (** does not work in a tuple). fetchall returns all
+(remaining) rows of a query result as a list. Return an empty list if no rows
+are available.
+
+Using sqlite3.Row as the row_factory we have extra functionality. records comes
+out as a list of <sqlite3.Row at address>. records[0]['name'] would print the
+name of the Dog at address. So it is like records is now a list of dictionaries
+and **record works.
+
+5. get_by_id and get_by_name
+
+Select Dog in a database with path database_name and returns it.
+
+Logic is pretty similar to what happens in list_dogs. However fetchone is used
+instead of fetchall. So it is assumed id and name are unique in the table dogs.
+Also there is the check for the case the dog is not found in the table. In which
+case we raise the exception NotFound
+
+#############################################
+refs
+#############################################
+see ../notebooks/dog.py
+https://docs.python.org/3/library/sqlite3.html
