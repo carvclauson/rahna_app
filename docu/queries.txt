@@ -1,0 +1,23 @@
+################################################################
+Documentation about the queries classes in queries.py and tests
+################################################################
+
+Goal: command and query classes work as a cover for the backend dog.py. The idea is that
+the api is going to have access to command and query classes but not to dog.py
+
+QUERIES LIST:
+
+1. ListDogsQuery
+
+When the API makes a request for listing all the dogs from a database, an instance of ListDogsQuery is created. The object has no attributes but has a method execute, which is called upon request.
+
+Testing:
+
+-test_list_dogs() instantiates two dogs and adds to the temporary database. Calls the method execute from ListDogsQuery and asserts that the returned list has length 2.
+
+2. GetDogByIDQuery
+
+When the API makes a request for retrieving a dog from a database by id, an instance of GetDogByIDQuery is created. The object has an id attribute carrying the id of the dog to be retrieved and a method execute, which is called upon request.
+
+Testing:
+-test_get_dog_by_id() instantiates a dog, which internally creates an id. GetDogByIDQuery is instantiated using this id and we make sure the returned dog by execute has the same id.

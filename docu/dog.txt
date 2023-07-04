@@ -62,7 +62,11 @@ Inserts a row in a database with path database_name. Returns the Dog object that
 called the function (self).
 
 Notice it is not a class method, therefore, an instance of Dog is calling the
-method. A Connection is created with the database dogs.db.
+method. A Connection is created with the database dogs.db. In the text context
+(for now the only context where it happens), an environment variable
+"DATABASE_NAME" is created with the path to a temporary test database. In case
+this environment variable is not created, the method connects with the database
+given in the argument database_name.
 
 An object cursor is instantiated from the Connection. The method execute again
 interacts with the database by sending queries. But in this case it inserts the

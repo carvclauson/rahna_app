@@ -23,7 +23,6 @@ class Dog(BaseModel):
         """
         Creates a table of dogs with path database_name.
         """
-
         conn = sqlite3.connect(database_name)
 
         conn.execute(
@@ -40,9 +39,8 @@ class Dog(BaseModel):
         """
 
         #more general case where we have a environment virable "DATABASE_NAME"
-        #with sqlite3.connect(os.getenv("DATABASE_NAME", "../data/dog.db"))
-        # as con:
-        with sqlite3.connect(database_name) as con:
+        with sqlite3.connect(os.getenv("DATABASE_NAME", database_name)) as con:
+        #with sqlite3.connect(database_name) as con:
             cur = con.cursor()
             cur.execute(
                 f""" INSERT INTO dogs (id, name, age, weight, parent_name,
@@ -53,7 +51,6 @@ class Dog(BaseModel):
             con.commit()
         return self
 
-
     @classmethod
     def list_dogs(cls, database_name = "../data/dog.db") -> List["Dog"]:
         """
@@ -62,8 +59,8 @@ class Dog(BaseModel):
         """
 
         #more general case where we have a environment virable "DATABASE_NAME"
-        #con = sqlite3.connect(os.getenv("DATABASE_NAME", "../data/dog.db"))
-        con = sqlite3.connect(database_name)
+        con = sqlite3.connect(os.getenv("DATABASE_NAME", database_name))
+        #con = sqlite3.connect(database_name)
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
@@ -83,9 +80,9 @@ class Dog(BaseModel):
         and returns it.
         """
 
-        #more general case where we have a environment virable "DATABASE_NAME"
-        #con = sqlite3.connect(os.getenv("DATABASE_NAME", "../data/dog.db"))
-        con = sqlite3.connect(database_name)
+        #more general case where we have a environment variable "DATABASE_NAME"
+        con = sqlite3.connect(os.getenv("DATABASE_NAME", database_name))
+        #con = sqlite3.connect(database_name)
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
@@ -109,8 +106,9 @@ class Dog(BaseModel):
         """
 
         #more general case where we have a environment virable "DATABASE_NAME"
-        #con = sqlite3.connect(os.getenv("DATABASE_NAME", "../data/dog.db"))
-        con = sqlite3.connect(database_name)
+        con = sqlite3.connect(os.getenv("DATABASE_NAME", database_name))
+        #con = sqlite3.connect(database_name)
+
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()

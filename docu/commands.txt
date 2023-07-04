@@ -1,0 +1,43 @@
+################################################################
+Documentation about the command classes in commands.py and tests
+################################################################
+
+Goal: command and query classes work as a cover for the backend dog.py. The idea is that
+the api is going to have access to command and query classes but not to dog.py
+
+COMMANDS LIST:
+
+1. SaveDogCommand
+
+When the API makes a request for adding a Dog to the database, an instance of
+SaveDogCommand is created with the necessary attributes and the method execute
+is called.
+
+An instance of this class has the same attributes as the class Dog in dog.py,
+except for the id. We want the id to be something that is managed by the system,
+i.e, the api will not ever generate an id for a dog added to the database.
+The method execute, checks if there is a dog with same name already in the
+data base, raising the AlreadyExists Exception when this is the case. If it is
+not the case, it instantiates a Dog object with the given attributes and uses
+the function save() from the dog class, to add the Dog object to the database.
+
+Testing:
+
+We use a fixture database to create a temporary database while testing.
+"Fixtures are functions decorated with a @pytest.fixture decorator. They are
+usually located inside conftest.py but they can be added to the actual test
+files as well. These functions are executed by default before each test... The
+autouse flag is set to True so that it's automatically used by default before
+(and after) each test in the test suite."
+In this case we use the fixture to create a environment variable "DATABASE_NAME"
+with the path to the temporary database. The class Dog is implemented to take
+this environment variable into consideration when it exists. Notice the fixture takes care of
+deleting the file after the test.
+
+If we do not use a fixture. We would need to manually manage the creation of a
+test database, clear it and organize the tests in a meaninful way.
+
+- test_save_dog() verifies that a Dog is created, added to the database, and
+retrieved with the same attributes.
+- test_save_dog_already_exists verifies if the AlreadyExists exception is
+thrown when a Dog that is already in the database is added to it again.
