@@ -17,3 +17,11 @@ class GetDogByIDQuery(BaseModel):
         dog = Dog.get_by_id(self.id)
 
         return dog
+
+class GetDogByNameQuery(BaseModel):
+    name: str
+
+    def execute(self) -> Dog:
+        dog = Dog.get_by_name(self.name)
+
+        return dog

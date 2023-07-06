@@ -21,3 +21,7 @@ When the API makes a request for retrieving a dog from a database by id, an inst
 
 Testing:
 -test_get_dog_by_id() instantiates a dog, which internally creates an id. GetDogByIDQuery is instantiated using this id and we make sure the returned dog by execute has the same id.
+
+3. GetDogByNameQuery
+
+Analogous to GetDogByIDQuery

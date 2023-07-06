@@ -31,8 +31,8 @@ autouse flag is set to True so that it's automatically used by default before
 (and after) each test in the test suite."
 In this case we use the fixture to create a environment variable "DATABASE_NAME"
 with the path to the temporary database. The class Dog is implemented to take
-this environment variable into consideration when it exists. Notice the fixture takes care of
-deleting the file after the test.
+this environment variable into consideration when it exists. Notice the fixture
+takes care of deleting the file after the test.
 
 If we do not use a fixture. We would need to manually manage the creation of a
 test database, clear it and organize the tests in a meaninful way.
@@ -41,3 +41,20 @@ test database, clear it and organize the tests in a meaninful way.
 retrieved with the same attributes.
 - test_save_dog_already_exists verifies if the AlreadyExists exception is
 thrown when a Dog that is already in the database is added to it again.
+
+2. DeleteDogByNameCommand
+
+API request for deleting a dog works similar to saving a dog.
+The instance of DeleteDogByNameCommand only has the to-be-deleted Dog's name.
+The method execute makes sure to raise a NotFound exception in case no dog is
+found to be deleted. It calls delete_by_name from the class Dog.
+
+Testing:
+
+- test_delete_dog_by_name() adds a dog to the database and calls
+DeleteDogByNameCommand's execute(). No exception is raised meaning that the dog
+was found in the DB. To make sure it is deleted, we try to get it with
+get_by_name and check that the dog is not there anymore.
+
+-test_delete_dog_by_name_not_found() checks that DeleteDogByNameCommand's
+execute() raises NotFound in case the dog to be deleted is not in the database

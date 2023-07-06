@@ -32,3 +32,14 @@ class SaveDogCommand(BaseModel):
         ).save(database_name = "./data/db_test_dog.db")
 
         return dog
+
+class DeleteDogByNameCommand(BaseModel):
+    name : str
+
+    def execute(self) -> None:
+        # raises exception NotFound in case dog is not found
+        Dog.get_by_name(self.name, database_name = "./data/db_test_dog.db")
+
+        Dog.delete_by_name(self.name, database_name = "./data/db_test_dog.db")
+
+        return None

@@ -122,3 +122,23 @@ class Dog(BaseModel):
         dog = cls(**record)
         con.close()
         return dog
+
+    @classmethod
+    def delete_by_name(cls, dog_name: str, database_name = "../data/dog.db"):
+        """
+        Deletes Dog with dog_name as name from the database with path database_name
+        and returns it.
+        """
+
+        con = sqlite3.connect(os.getenv("DATABASE_NAME", database_name))
+
+        cur = con.cursor()
+        cur.execute(f"""
+                    DELETE
+                    FROM dogs
+                    WHERE name = '{dog_name}'
+                    """)
+
+        con.commit()
+
+        return None
