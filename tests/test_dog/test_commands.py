@@ -1,11 +1,11 @@
 import pytest
 
 from rahna.dog import Dog, NotFound
-from rahna.commands import SaveDogCommand, AlreadyExists, DeleteDogByNameCommand
+from rahna.commands import AddDogCommand, AlreadyExists, DeleteDogByNameCommand
 
-def test_save_dog():
+def test_add_dog():
 
-    cmd = SaveDogCommand(
+    cmd = AddDogCommand(
         name = 'Falafel',
         age = 3,
         weight = 6.5,
@@ -42,7 +42,7 @@ def test_delete_dog_by_name():
         Dog.get_by_name('Falafel')
 
 
-def test_save_dog_already_exists():
+def test_add_dog_already_exists():
 
     dog = Dog(
         name = 'Falafel',
@@ -53,7 +53,7 @@ def test_save_dog_already_exists():
         email = 'raquel@brasileiro.com'
     ).save()
 
-    cmd = SaveDogCommand(
+    cmd = AddDogCommand(
         name = 'Falafel',
         age = 3,
         weight = 6.5,

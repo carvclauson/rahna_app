@@ -5,7 +5,7 @@ from rahna.dog import Dog, NotFound
 class AlreadyExists(Exception):
     pass
 
-class SaveDogCommand(BaseModel):
+class AddDogCommand(BaseModel):
     name: str
     age: int
     weight: float

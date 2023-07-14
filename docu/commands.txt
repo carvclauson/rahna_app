@@ -7,7 +7,7 @@ the api is going to have access to command and query classes but not to dog.py
 
 COMMANDS LIST:
 
-1. SaveDogCommand
+1. AddDogCommand
 
 When the API makes a request for adding a Dog to the database, an instance of
 SaveDogCommand is created with the necessary attributes and the method execute
@@ -37,9 +37,9 @@ takes care of deleting the file after the test.
 If we do not use a fixture. We would need to manually manage the creation of a
 test database, clear it and organize the tests in a meaninful way.
 
-- test_save_dog() verifies that a Dog is created, added to the database, and
+- test_add_dog() verifies that a Dog is created, added to the database, and
 retrieved with the same attributes.
-- test_save_dog_already_exists verifies if the AlreadyExists exception is
+- test_add_dog_already_exists verifies if the AlreadyExists exception is
 thrown when a Dog that is already in the database is added to it again.
 
 2. DeleteDogByNameCommand
