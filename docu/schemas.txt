@@ -1,0 +1,18 @@
+################################################################
+Documentation about the json schemas
+################################################################
+
+"JSON Schemas are used to define the responses from API endpoints. Before continuing,
+install the jsonschema Python library, which will be used to validate JSON payloads
+against the defined schemas, and Flask:"
+see https://json-schema.org and https://github.com/python-jsonschema/jsonschema
+
+"JSON Schema is a declarative language that allows you to annotate and validate JSON documents.
+JSON Schema enables the confident and reliable use of the JSON data format."
+So it seems like a "language" that was defined with the intent of testing JSON documents.
+Then the jsonschema library is the Python way to use this language.
+
+For further details go to https://json-schema.org/understanding-json-schema/
+
+schemas:
+Dog.json

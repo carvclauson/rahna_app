@@ -1,0 +1,33 @@
+################################################################
+Documentation about the api (app.py)
+################################################################
+
+See https://flask.palletsprojects.com/en/2.3.x/quickstart/#a-minimal-application
+The line app = Flask(__name__) creates a Flask object https://flask.palletsprojects.com/en/2.3.x/api/#flask.Flask.
+We then use the route() decorator to tell Flask which URL should trigger which function. It to binds functions to a URLs.
+
+routes:
+/add-dog/: ...
+
+
+tests:
+Notice that there is a pytest fixture to be used as a client making requests.
+app.config is a dictionary and "TESTING", when True, makes Exceptions to be
+propagated rather than handled by the the app’s error handlers. Then a test
+client is created using app.test_client(). The client has methods that match the
+common HTTP request methods, such as client.get() and client.post(). They take
+many arguments for building the request; you can find the full documentation in
+https://werkzeug.palletsprojects.com/en/2.3.x/test/#werkzeug.test.EnvironBuilder
+. The test client is yielded as the fixture value for use in tests. When you run
+test_app.py, the fixture client will be called once per test function.
+In other words, the fixture will be executed before each test function in the
+test module. This ensures that each test function has its own fresh instance of
+the test client.
+
+test_add_dog: makes the add-dog post request with some data given (to be the
+Dog attributes). The request is called by the test client. Normally, when
+we call post from the requests library, the url and data are enough. But in this
+case, the client is created by the app, so the base url is somehow implicit. One
+needs the endpoint, data but also
+
+validates the response json agains the Dog.json schema.
