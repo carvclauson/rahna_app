@@ -13,11 +13,11 @@ class AddDogCommand(BaseModel):
     phone: str
     email: EmailStr
 
-    def execute(self) -> Dog:
+    def execute(self, test_ext = False) -> Dog:
+
+        db_name = "../data/test_dog.db" if test_ext else "../data/dog.db"
         try:
-            #notice the tests are called at /rahna_app and therefore ./
-            #means ./rahna_app (it probably should be better than this)
-            Dog.get_by_name(self.name, database_name = "./data/db_test_dog.db")
+            Dog.get_by_name(self.name, database_name = db_name)
             raise AlreadyExists
         except NotFound:
             pass
@@ -29,17 +29,19 @@ class AddDogCommand(BaseModel):
             parent_name = self.parent_name,
             phone = self.phone,
             email = self.email
-        ).save(database_name = "./data/db_test_dog.db")
+        ).save(database_name = db_name)
 
         return dog
 
 class DeleteDogByNameCommand(BaseModel):
     name : str
 
-    def execute(self) -> None:
-        # raises exception NotFound in case dog is not found
-        Dog.get_by_name(self.name, database_name = "./data/db_test_dog.db")
+    def execute(self, test_ext = False) -> None:
+        db_name = "../data/test_dog.db" if test_ext else "../data/dog.db"
 
-        Dog.delete_by_name(self.name, database_name = "./data/db_test_dog.db")
+        # raises exception NotFound in case dog is not found
+        Dog.get_by_name(self.name, database_name = db_name)
+
+        Dog.delete_by_name(self.name, database_name = db_name)
 
         return None

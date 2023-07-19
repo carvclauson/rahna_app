@@ -17,12 +17,12 @@ class Dog(BaseModel):
     phone: str = ""
     email: EmailStr  = "noemail@domain.com"
 
-
     @classmethod
     def create_table(cls, database_name = "../data/dog.db"):
         """
         Creates a table of dogs with path database_name.
         """
+
         conn = sqlite3.connect(database_name)
 
         conn.execute(
@@ -38,9 +38,7 @@ class Dog(BaseModel):
         object that called the function (self).
         """
 
-        #more general case where we have a environment virable "DATABASE_NAME"
         with sqlite3.connect(os.getenv("DATABASE_NAME", database_name)) as con:
-        #with sqlite3.connect(database_name) as con:
             cur = con.cursor()
             cur.execute(
                 f""" INSERT INTO dogs (id, name, age, weight, parent_name,
@@ -58,9 +56,7 @@ class Dog(BaseModel):
         Dog objects.
         """
 
-        #more general case where we have a environment virable "DATABASE_NAME"
         con = sqlite3.connect(os.getenv("DATABASE_NAME", database_name))
-        #con = sqlite3.connect(database_name)
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
@@ -80,9 +76,7 @@ class Dog(BaseModel):
         and returns it.
         """
 
-        #more general case where we have a environment variable "DATABASE_NAME"
         con = sqlite3.connect(os.getenv("DATABASE_NAME", database_name))
-        #con = sqlite3.connect(database_name)
         con.row_factory = sqlite3.Row
 
         cur = con.cursor()
@@ -105,9 +99,7 @@ class Dog(BaseModel):
         and returns it.
         """
 
-        #more general case where we have a environment virable "DATABASE_NAME"
         con = sqlite3.connect(os.getenv("DATABASE_NAME", database_name))
-        #con = sqlite3.connect(database_name)
 
         con.row_factory = sqlite3.Row
 
