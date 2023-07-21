@@ -3,17 +3,18 @@
 
 <h3 align="left">Connect with us:</h3>
 <p align="left">
-  <a href="https://linkedin.com/in/raquelbrasileiro" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="raquelbrasileiro" height="30" width="40" />
-  </a>
-  <span>Raquel Brasileiro</span>
-</p>
-<p align="left">
   <a href="https://www.linkedin.com/in/clauson-da-silva/" target="blank">
     <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="your-second-linkedin-url" height="30" width="40" />
   </a>
-  <span>Clauson Carvalho</span>
+  <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">Clauson Carvalho</span>
 </p>
+<p align="left">
+  <a href="https://linkedin.com/in/raquelbrasileiro" target="blank">
+    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="raquelbrasileiro" height="30" width="40" />
+  </a>
+  <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">Raquel Brasileiro</span>
+</p>
+
 
 ## Roadmap
 
