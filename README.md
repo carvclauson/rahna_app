@@ -19,6 +19,12 @@
 ## Roadmap
 
 - [ ] Create DB structure
+    - [ ] document the routes specifics on app.txt
+    - [ ] document the external test mechanism used to switch between the main database dog.db and test_dog.db used for the tests in the jupyter notebooks
+    - [ ] end-to-end tests
+    - [ ] add mechanisms of Code quality check (article)
+    - [ ] polish documentation (article)
+
 - [ ] ADM portal
 - [ ] Customer portal
 
