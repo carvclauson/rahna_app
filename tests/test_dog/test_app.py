@@ -91,3 +91,23 @@ def test_get_dog_by_name(client):
 
     response = client.get(f"/dog/{dog.name}/", content_type = "application.json")
     validate_payload(response.json, "Dog.json")
+
+def test_list_dogs(client):
+    Dog(
+        name = 'Falafel',
+        age = 3,
+        weight = 6.5,
+        parent_name = 'Raquel Brasileiro',
+        phone = '+55 21 98888 7777',
+        email = 'raquel@brasileiro.com'
+    ).save()
+    Dog(
+        name = 'Halloumi',
+        age = 5,
+        weight = 8.5,
+        parent_name = 'Maria Gomes',
+        phone = '+55 21 98888 6666',
+        email = 'maria@gomes.com'
+    ).save()
+    response = client.get("/list-dogs/", content_type = "application/json")
+    validate_payload(response.json, "DogList.json")

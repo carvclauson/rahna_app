@@ -16,3 +16,4 @@ For further details go to https://json-schema.org/understanding-json-schema/
 
 schemas:
 Dog.json
+DogList.json

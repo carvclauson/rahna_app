@@ -9,6 +9,7 @@ We then use the route() decorator to tell Flask which URL should trigger which f
 routes: TODO
 /add-dog/: ...
 /dog/<dog_name>/: ...
+/list-dogs/
 
 error handler: We create an errorhandler for the application. Every time an
 Exception is raised in a request, the error handler checks if it is a
@@ -37,7 +38,11 @@ test_add_dog: executes the /add-dog/ post request with some data given (to be th
 Dog attributes). The request is called by the test client. Normally, when
 we call post from the requests library, the url and data are enough. But in this
 case, the client is created by the app, so the base url is somehow implicit. One
-needs the endpoint, data but also validates the response json against the Dog.json schema.
+needs the endpoint, data but also validates the response json against the
+Dog.json schema.
 
 test_get_dog_name: executes the /dog/<dog_name>/ get request from the test client
 and validates the response json against the Dog.json schema.
+
+test_list_dogs: executes the /list-dogs/ get request from the test client and
+validates the response json agains the DogList.json

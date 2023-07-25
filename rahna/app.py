@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from pydantic import ValidationError
 
 from rahna.commands import AddDogCommand
-from rahna.queries import GetDogByNameQuery
+from rahna.queries import GetDogByNameQuery, ListDogsQuery
 
 app = Flask(__name__)
 
@@ -26,6 +26,12 @@ def add_dog():
 def get_dog(dog_name):
     query = GetDogByNameQuery(name = dog_name)
     return jsonify(query.execute(test_ext=app.config['TESTING']).dict())
+
+@app.route("/list-dogs/", methods = ["GET"])
+def list_dogs():
+    query = ListDogsQuery()
+    records = [record.dict() for record in query.execute()]
+    return jsonify(records)
 
 import sys
 if __name__ == "__main__":
