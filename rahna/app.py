@@ -30,7 +30,7 @@ def get_dog(dog_name):
 @app.route("/list-dogs/", methods = ["GET"])
 def list_dogs():
     query = ListDogsQuery()
-    records = [record.dict() for record in query.execute()]
+    records = [record.dict() for record in query.execute(test_ext=app.config['TESTING'])]
     return jsonify(records)
 
 import sys

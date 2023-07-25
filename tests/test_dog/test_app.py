@@ -1,6 +1,7 @@
 import json
 import pathlib
 import pytest
+import requests
 from jsonschema import validate, RefResolver
 
 from rahna.app import app
@@ -111,3 +112,25 @@ def test_list_dogs(client):
     ).save()
     response = client.get("/list-dogs/", content_type = "application/json")
     validate_payload(response.json, "DogList.json")
+
+@pytest.mark.e2e
+def test_add_list_get(client):
+    data= {'name' : 'Falafel',
+        'age' : 3,
+        'weight' : 6.5,
+        'parent_name' : 'Raquel Brasileiro',
+        'phone' : '+55 21 98888 7777',
+        'email' : 'raquel@brasileiro.com'}
+
+    requests.post(
+        "http://localhost:5000/add-dog",
+    json = data
+    )
+    response = requests.get(
+        "http://localhost:5000/list-dogs/"
+        )
+    dogs = response.json()
+    response = requests.get(
+        f"http://localhost:5000/dog/{dogs[0]['name']}/"
+    )
+    assert response.status_code == 200

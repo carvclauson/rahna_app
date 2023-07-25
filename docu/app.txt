@@ -31,6 +31,18 @@ In other words, the fixture will be executed before each test function in the
 test module. This ensures that each test function has its own fresh instance of
 the test client.
 
+Running tests
+
+python -m pytest tests -m 'e2e' runs only end-to-end test. The api needs to be
+running with python -m app test_ext.
+
+python -m pytest tests runs all tests. The api needs to be
+running with python -m app test_ext.
+
+python -m pytest tests -m 'not e2e' runs teh no only end-to-end test
+
+
+
 test_add_dog_bad_request: Makes sure that in case of bad request, the app returns
 response with status 400 instead of 500.
 
@@ -46,3 +58,5 @@ and validates the response json against the Dog.json schema.
 
 test_list_dogs: executes the /list-dogs/ get request from the test client and
 validates the response json agains the DogList.json
+
+test_add_list_get: executes end-to-end tests where 3 requests are made.
