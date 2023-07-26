@@ -1,8 +1,0 @@
-1 - document the routes specifics on app.txt
-2 - document the external test mechanism used to switch between the main
-database dog.db and test_dog.db used for the tests in the jupyter notebooks
-
-3 - end-to-end tests
-4 - add mechanisms of Code quality check (article)
-5 - polish documentation (article)
-6 - Undertand if, why and exactely how we could use the Django framework
