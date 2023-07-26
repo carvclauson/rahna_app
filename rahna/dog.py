@@ -63,10 +63,10 @@ class Dog(BaseModel):
         cur.execute("SELECT * FROM dogs")
 
         records = cur.fetchall()
-        articles = [cls(**record) for record in records]
+        dogs = [cls(**record) for record in records]
         con.close()
 
-        return articles
+        return dogs
 
 
     @classmethod
