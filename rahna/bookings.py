@@ -11,50 +11,52 @@ class NotFound(Exception):
 
 class Booking(BaseModel):
     booking_id: str = Field(default_factory = lambda: str(uuid.uuid4()))
-    dog: Dog
+    dog_id: str
     start_date: datetime
     end_date: datetime = None
     total_days: timedelta = None
     price: float = 0.0
     booking_confirmed: str = ""
 
-@classmethod
-def total_days(start_date, end_date):
-    # Return timedelta in days
-    return timedelta(end_date - start_date)
+    # @classmethod
+    # def total_days_compute(cls, start_date, end_date):
+    #     # Return timedelta in days
+    #     return end_date.date() - start_date.date()
 
-@classmethod
-def create_table(cls, database_name = "../data/bookings.db"):
-    """
-    Creates a table of bookings with path database_name.
-    """
+    @classmethod
+    def create_table(cls, database_name = "../data/bookings.db"):
+        """
+        Creates a table of bookings with path database_name.
+        """
 
-    conn = sqlite3.connect(database_name)
+        conn = sqlite3.connect(database_name)
 
-    conn.execute(
-        """CREATE TABLE IF NOT EXISTS bookings (id TEXT, name TEXT,
-        parent_name: TEXT, start_date DATETIME, end_date DATETIME,
-        total_days INT, price FLOAT)"""
-    )
-    conn.close()
-
-
-def save(self, database_name = "../data/bookings.db")-> "Booking":
-    """
-    Inserts a row in a database with path database_name. Returns the Booking
-    object that called the function (self).
-    """
-
-    with sqlite3.connect(os.getenv("DATABASE_NAME", database_name)) as con:
-        cur = con.cursor()
-        cur.execute(
-            f""" INSERT INTO bookings (id, dog_id, name, parent_name,
-            start_date, end_date, total_days, price)
-            VALUES('{self.id}','{Dog.id}', {Dog.name}','{Dog.parent_name}',
-            '{self.start_date}','{self.end_date}','{self.total_days}', '{self.price}')"""
+        conn.execute(
+            """CREATE TABLE IF NOT EXISTS bookings (id TEXT, dog_id TEXT,
+            start_date DATETIME, end_date DATETIME,
+            total_days INT, price FLOAT, confirmation TEXT)"""
         )
-        con.commit()
-    return self
+        conn.close()
+
+
+    def save(self, database_name = "../data/bookings.db")-> "Booking":
+        """
+        Inserts a row in a database with path database_name. Returns the Booking
+        object that called the function (self).
+        """
+
+        with sqlite3.connect(os.getenv("DATABASE_NAME", database_name)) as con:
+            cur = con.cursor()
+            cur.execute(
+                f""" INSERT INTO bookings (id, dog_id,
+                start_date, end_date, total_days, price, confirmation)
+                VALUES('{self.booking_id}','{self.dog_id}',
+                '{self.start_date}','{self.end_date}',
+                '{self.total_days.days}', '{self.price}',
+                '{self.booking_confirmed}')"""
+            )
+            con.commit()
+        return self
 
 
 @classmethod
