@@ -1,0 +1,14 @@
+################################################################
+Documentation about the databases and tests
+################################################################
+
+Scenarios:
+
+1) Running make test_commands, make test_queries or make test_all: A new environment variable is declared
+with the name of a temporary database that is created. This happens in the fixture in conftest.py.
+After the tests, the database ceases to exist.
+
+2) Running tests in test_app: In this case the api should be running, but it has to be ran with
+python -m app test_ext. The argument test_ext tells the api that the database to be used is test_dog.db
+
+3) If the api is running for production. The database to be used is dog.db
