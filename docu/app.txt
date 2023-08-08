@@ -6,10 +6,13 @@ See https://flask.palletsprojects.com/en/2.3.x/quickstart/#a-minimal-application
 The line app = Flask(__name__) creates a Flask object https://flask.palletsprojects.com/en/2.3.x/api/#flask.Flask.
 We then use the route() decorator to tell Flask which URL should trigger which function. It to binds functions to a URLs.
 
-routes: TODO
-/add-dog/: ...
-/dog/<dog_name>/: ...
-/list-dogs/
+routes:
+/add-dog/: is the endpoint for a  post request that adds a dog as a row of the database
+
+/dog/<dog_name>/: is the endpoint for a get request that queries a dog from the database
+using it is name
+
+/list-dogs/: is the endpoint for a get request that queries a list of all dogs in the database
 
 error handler: We create an errorhandler for the application. Every time an
 Exception is raised in a request, the error handler checks if it is a
@@ -40,8 +43,6 @@ python -m pytest tests runs all tests. The api needs to be
 running with python -m app test_ext.
 
 python -m pytest tests -m 'not e2e' runs teh no only end-to-end test
-
-
 
 test_add_dog_bad_request: Makes sure that in case of bad request, the app returns
 response with status 400 instead of 500.
